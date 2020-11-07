@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Book_Shoppe.Entity.Book>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="secondary-bg">
+    <h1 class="heading">Book Shoppe</h1>
+</div>
+
+
+
+<div>
+    @Html.Partial("_EntityCardList")
+</div>
+
+<div>
+    @Html.Partial("_SearchResult")
+</div>
+

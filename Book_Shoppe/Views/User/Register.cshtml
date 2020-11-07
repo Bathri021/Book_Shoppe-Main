@@ -1,0 +1,120 @@
+﻿@model Book_Shoppe.Models.RegistrationFormViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 class="heading">Create new account</h2>
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+    if (ViewBag.Alert != null)
+    {
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@ViewBag.Alert</strong>
+        </div>
+    }
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.Name, new { @class = "col-form-label" })
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "inputDefault", maxlength = 26 })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.UserName, new { @class = "col-form-label" })
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "inputDefault", maxlength = 26 })
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.MailID, new { @class = "col-form-label" })
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.MailID, new { @class = "form-control", id = "inputDefault", maxlength = 64 })
+            @Html.ValidationMessageFor(m => m.MailID)
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.Password, new { @class = "col-form-label" })
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", id = "exampleInputPassword1", type = "password", maxlength = 12 })
+            @*<button id="show_password" class="btn btn-primary" type="button">
+                <span class="fa fa-eye-slash icon"></span>
+            </button>*@
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.RoleID, new { @class = "col-form-label" })
+        </div>
+        <div class="nav-item dropdown">
+            @Html.DropDownListFor(m => m.RoleID, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role", new { @class = "nav-link dropdown-toggle dropdown-menu show", @style = "position: absolute; transform: translate3d(0px, 35px, 0px); top: -5vh; left: 0px; will-change: transform;" })
+            <br />
+            <br />
+            @Html.ValidationMessageFor(m => m.RoleID, null, new { style = "margin-top:10vh" })
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                @if (ViewBag.Message != null)
+                {
+                    <input type="submit" class="btn btn-outline-primary" id="submit" disabled />
+                }
+                else
+                {
+                    <input type="submit" class="btn btn-outline-primary" id="submit" />
+                }
+
+            </td>
+
+        </tr>
+    </table>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('#show_password').hover(function show() {
+            //Change the attribute to text
+            $('#exampleInputPassword1').attr('type', 'text');
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#exampleInputPassword1').attr('type', 'password');
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+        //CheckBox Show Password
+        $('#ShowPassword').click(function () {
+            $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+        });
+    });
+</script>*@  

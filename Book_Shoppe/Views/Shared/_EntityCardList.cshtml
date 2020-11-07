@@ -1,0 +1,51 @@
+﻿<div>
+    @if (Session["WishList_Message"]!= null)
+    {
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@Session["WishList_Message"]</strong>
+        </div>
+    }
+    @if (Session["CartList_Message"] != null)
+    {
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@Session["CartList_Message"]</strong>
+        </div>
+    }
+</div>
+<div class="secondary-bg scroll-card ">
+    <div class="horizontal-scroll-wrapper">
+        @{
+            int i = 0;
+            foreach (var item in Model)
+            {
+                if (i < 8)
+                {
+                    <div class="card border-primary mb-3" style="max-width: 20rem;">
+                        <div class="card-title"><strong>@item.Title</strong></div>
+                        <div>
+                            <div class="card-text">Author : @item.Author</div>
+                            @try
+                            {
+                                <div class="card-text">Genere : @item.Genre.GenreName</div>
+                                <div class="card-text">Language : @item.Language.LanguageName</div>
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+                            <div class="card-text">Price : &#36;@item.Price</div>
+                        </div>
+                        <div class="btn-group-sm @*btns-card*@">
+                            @Html.ActionLink("_Cart", "AddToCart", "User", new { id = @item.BookID }, new { @class = "btn btn-outline-primary btn-sm fa fa-shopping-cart" })
+                            @Html.ActionLink("_Wishlist", "AddToWishList", "User", new { id = @item.BookID }, new { @class = "btn btn-outline-info btn-sm fas fa-heart" })
+                        </div>
+                    </div>
+                    <div></div>
+                }
+                i++;
+            }
+        }
+    </div>
+</div>

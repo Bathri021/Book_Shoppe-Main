@@ -1,0 +1,44 @@
+﻿@model Book_Shoppe.ViewModel.GetShipmentDetailsVM
+@{
+    ViewBag.Title = "GetShipmentDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Shipment Datails</h2>
+
+@using (Html.BeginForm("PlaceOrder", "User", FormMethod.Post, new { @class = "form" }))
+{
+    <h2 class="heading">Enter Shipment Details</h2>
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        <div>
+            @Html.LabelFor(m => m.Address, new { @class = "col-form-label" })
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", id = "inputDefault", maxlength = 26 })
+            @Html.ValidationMessageFor(m => m.Address)
+        </div>
+    </div>
+
+    if (ViewBag.Message != null)
+    {
+        <input type="submit" class="btn btn-outline-primary" id="submit" disabled />
+    }
+    else
+    {
+        <input type="submit" class="btn btn-outline-primary" id="submit" />
+    }
+    @Html.ActionLink("Back", "UserProfile", new { id = Session["UserID"] }, new { @class = "btn btn-outline-info" })
+
+}

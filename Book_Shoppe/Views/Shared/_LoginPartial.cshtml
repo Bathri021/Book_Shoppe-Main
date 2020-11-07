@@ -1,0 +1,18 @@
+﻿@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + HttpContext.Current.User.Identity.Name+ "!", "UserProfile", "User", routeValues: new { id = Convert.ToInt32(Session["UserID"]) }, htmlAttributes: new { @class = "nav-link" })
+            </li>
+            <li>
+                @Html.ActionLink("Log out", "LogOut", "User", null, new { @class = "nav-link" })
+            </li>
+        </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "User", routeValues: null, htmlAttributes: new { @class = "nav-link", id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "LogIn", "User", routeValues: null, htmlAttributes: new { @class = "nav-link", id = "loginLink" })</li>
+    </ul>
+}

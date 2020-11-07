@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("LogIn", "User", FormMethod.Post, new { @class = "form" }))
+{ 
+    @Html.AntiForgeryToken()
+   <div class="loginForm">
+       <h2 class="heading">LogIn</h2>
+
+       @if (ViewBag.Message != null)
+       {
+       <div class="alert alert-dismissible alert-primary">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+           <strong>@ViewBag.Message</strong>
+       </div>
+       }
+       @if (ViewBag.Alert != null)
+       {
+       <div class="alert alert-dismissible alert-warning">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+           <strong>@ViewBag.Alert</strong>
+       </div>
+       }
+
+       @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+       <div class="form-group">
+           <div>
+               @Html.Label("User Name", new { @class = "col-form-label" })
+           </div>
+           <div>
+               @Html.TextBox("UserName", null, new { @class = "form-control", id = "inputDefault" ,maxlength=26})
+           </div>
+       </div>
+
+       <div class="form-group">
+           <div>
+               @Html.Label("Password", new { @class = "col-form-label" })
+           </div>
+           <div>
+               @Html.TextBox("Password", null, new { @class = "form-control", id = "exampleInputPassword1", type = "password" })
+           </div>
+       </div>
+       <input type="submit" class="btn btn-outline-primary" id="submit" />
+       <div></div>
+       <div>
+           @Html.ActionLink("Forget Password?", "forgotPassword")
+       </div>
+   </div>
+}

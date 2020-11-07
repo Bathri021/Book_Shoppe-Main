@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Book_Shoppe.Entity.Book>
+@{
+    ViewBag.Title = "UserOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="secondary-bg">
+    <h1>User Ordered Books</h1>
+</div>
+
+<h1 class="heading">Book Details</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="table-info">
+            <th>Sno</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Genere</th>
+            <th>Language</th>
+            <th>Price</th>
+          @*  <th>Operations</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+            foreach (var item in Model)
+            {
+                <tr class="table-light">
+                    <td>@count</td>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.Genre.GenreName</td>
+                    <td>@item.Language.LanguageName</td>
+                    <td>@item.Price</td>
+                   @* <td class="btn-group" role="group" aria-label="Basic example">@Html.ActionLink("Edit", "Edit", new { id = item.BookID }, new { @class = "btn btn-secondary" }) @Html.ActionLink("Delete", "Delete", new { id = item.BookID }, new { @class = "btn btn-secondary", onclick = "return confirm('Are you sure, you want delete this Book?');" })</td>*@
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
+<br />

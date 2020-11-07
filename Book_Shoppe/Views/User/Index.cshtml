@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Book_Shoppe.Entity.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="secondary-bg">
+    <h2 class="heading">User List</h2>
+</div>
+
+<h2>Customer List</h2>
+<table class="table table-hover">
+    <thead>
+        <tr class="table-info">
+            <th scope="col">Sno</th>
+            <th scope="col">Name</th>
+            <th scope="col">Mail ID</th>
+            <th scope="col">Role</th>
+            <th scope="col">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+            foreach (var user in Model.ToList())
+            {
+                if (user.Role.RoleName=="Customer")
+                {
+                    <tr class="table-light">
+                        <td>@i</td>
+                        <td> @user.Name</td>
+                        <td>@user.MailID</td>
+                        <td>@user.Role.RoleName</td>
+                        <td class="btn-group" role="group" aria-label="Basic example">@Html.ActionLink("View Details", "ViewDetails", "User", new { id = user.UserID }, new { @class = "btn btn-secondary" }) @Html.ActionLink("Delete", "Delete", new { id = user.UserID }, new { @class = "btn btn-secondary", onclick = "return confirm('Are you sure, you want delete this User?');" })</td>
+                    </tr>
+                    i++;
+                }
+            }
+        }
+    </tbody>
+</table>
+
+<h2> Seller List</h2>
+<table class="table table-hover">
+    <thead>
+        <tr class="table-info">
+            <th scope="col">Sno</th>
+            <th scope="col">Name</th>
+            <th scope="col">Mail ID</th>
+            <th scope="col">Role</th>
+            <th scope="col">Operations</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int j = 1;
+            foreach (var user in Model.ToList())
+            {
+                if (user.Role.RoleName == "Seller")
+                {
+                    <tr class="table-light">
+                        <td>@j</td>
+                        <td> @user.Name</td>
+                        <td>@user.MailID</td>
+                        <td>@user.Role.RoleName</td>
+                        <td class="btn-group" role="group" aria-label="Basic example">@Html.ActionLink("View Details", "ViewDetails", "User", new { id = user.UserID }, new { @class = "btn btn-secondary" }) @Html.ActionLink("Delete", "Delete", new { id = user.UserID }, new { @class = "btn btn-secondary", onclick = "return confirm('Are you sure, you want delete this User?');" })</td>
+                    </tr>
+                    j++;
+                }
+            }
+        }
+    </tbody>
+</table>

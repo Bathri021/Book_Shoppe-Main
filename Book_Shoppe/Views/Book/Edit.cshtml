@@ -1,0 +1,109 @@
+﻿@model Book_Shoppe.Models.EditBookFormVM
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="secondary-bg">
+    <h1 class="heading">Edit Book Details</h1>
+</div>
+
+
+@using (Html.BeginForm("Update", "Book", FormMethod.Post,new { @class="form"}))
+{
+    @Html.AntiForgeryToken()
+  <div class="editBookForm">
+      <h2 class="heading">Book Details</h2>
+      @Html.HiddenFor(Model => Model.BookID)
+      @Html.HiddenFor(Model => Model.UserID)
+      <div>
+          <div class="form-group">
+              <div>
+                  @Html.LabelFor(Model => Model.Title, new { @class = "col-form-label" })
+              </div>
+              <div>
+                  @Html.TextBoxFor(Model => Model.Title, null, new { id = "inputDefault", @class = "form-control" , maxlength = 55 })
+              </div>
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.Title)
+              </div>
+          </div>
+          <div class="form-group">
+              <div>
+                  @Html.LabelFor(Model => Model.Author, new { @class = "col-form-label" })
+              </div>
+              <div>
+                  @Html.TextBoxFor(Model => Model.Author, new { id = "inputDefault", @class = "form-control" , maxlength = 26})
+              </div>
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.Author)
+              </div>
+          </div>
+          <div class="form-group">
+              <div>
+                  @Html.LabelFor(Model => Model.GenreID, new { @class = "col-form-label" })
+              </div>
+              <div class="nav-item dropdown">
+                  @Html.DropDownListFor(Model => Model.GenreID, (IEnumerable<SelectListItem>)ViewBag.Genres, "Select Genre", new { @class = "nav-link dropdown-toggle dropdown-menu show", @style = "position: absolute; transform: translate3d(0px, 35px, 0px); top: -5vh; left: 0px; will-change: transform;" })
+              </div>
+              <br />
+              <br />
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.GenreID)
+              </div>
+          </div>
+          <div class="form-group">
+              <div>
+                  @Html.LabelFor(Model => Model.LanguageID, new { @class = "col-form-label" })
+              </div>
+              <div class="nav-item dropdown">
+                  @Html.DropDownListFor(Model => Model.LanguageID, (IEnumerable<SelectListItem>)ViewBag.Languages, "Select Language", new { @class = "nav-link dropdown-toggle dropdown-menu show", @style = "position: absolute; transform: translate3d(0px, 35px, 0px); top: -5vh; left: 0px; will-change: transform;" })
+              </div>
+              <br />
+              <br />
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.LanguageID)
+              </div>
+          </div>
+          <div>
+              <div>
+                  @Html.LabelFor(Model => Model.Price, new { @class = "col-form-label" })
+              </div>
+              <div>
+                  @Html.TextBoxFor(Model => Model.Price, new { id = "inputDefault", @class = "form-control" })
+              </div>
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.Price)
+              </div>
+          </div>
+          <div>
+              <div>
+                  @Html.LabelFor(Model => Model.NoOfPages, new { @class = "col-form-label" })
+              </div>
+              <div>
+                  @Html.TextBoxFor(Model => Model.NoOfPages, new { id = "inputDefault", @class = "form-control" })
+              </div>
+              <div>
+                  @Html.ValidationMessageFor(Model => Model.NoOfPages)
+              </div>
+          </div>
+          <br />
+          <table>
+              <tr>
+                  <td>
+                      @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-outline-info" })
+                  </td>
+                  <td>
+                      <input type="submit" class="btn btn-outline-primary" id="submit" />
+                  </td>
+              </tr>
+          </table>
+      </div>
+  </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+

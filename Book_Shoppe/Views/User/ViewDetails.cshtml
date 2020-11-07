@@ -1,0 +1,38 @@
+﻿@model Book_Shoppe.Entity.User
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="secondary-bg">
+    <h2 class="heading">View Details</h2>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Type</th>
+            <th scope="col">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.DisplayFor(m => m.Name)</td>
+        </tr>
+        <tr class="table-light">
+            <td>@Html.LabelFor(m => m.UserName)</td>
+            <td>@Html.DisplayFor(m => m.UserName)</td>
+        </tr>
+        <tr class="table-light">
+            <td>@Html.LabelFor(m => m.MailID)</td>
+            <td>@Html.DisplayFor(m => m.MailID)</td>
+        </tr>
+        <tr class="table-light">
+            <td>@Html.LabelFor(m => m.Role)</td>
+            <td>@Html.DisplayFor(m => m.Role.RoleName)</td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.ActionLink("Back To List", "Index",null, new { @class="btn btn-outline-info"})

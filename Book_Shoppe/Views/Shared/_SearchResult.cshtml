@@ -1,0 +1,74 @@
+﻿
+<h1>Book Details</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th>Sno</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Genere</th>
+            <th>Language</th>
+            <th>Price</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody id="DataSearching">
+        @{
+            int count = 1;
+            foreach (var item in Model)
+            {
+                <tr class="table-light">
+                    <td>@count</td>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.GenreID</td>
+                    <td>@item.Language.LanguageName</td>
+                    <td>&#36;@item.Price</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Buy&nbsp; <i class="fa fa-shopping-cart"></i></button>
+                        <button type="button" class="btn btn-outline-info btn-sm">Wish List&nbsp; &hearts;</button>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $("#search-input").keyup(function () {
+                var SearchValue = $("#search-input").val();
+                var SetData = $("#DataSearching");
+                SetData.html("");
+                $.ajax({
+                    type: "post",
+                    url: "/Home/GetSearchingData?SearchValue=" + SearchValue,
+                    contentType: "html",
+                    success: function (result) {
+                        if (result.length == 0) {
+                            SetData.append('<tr class=\"table-light\" style="color:red"><td colspan="6">No Matching Found</td></tr>')
+                        } else {
+                            $.each(result, function (index, value) {
+                                var sno = index + 1;
+                                var Data = "<tr class=\"table-light\">" +
+                                      "<td>" + sno + "</td>" +
+                                      "<td>" + value.Title + "</td>" +
+                                      "<td>" + value.Author + "</td>" +
+                                      "<td>" + value.Genre.GenreName + "</td>" +
+                                      "<td>" + value.Language.LanguageName + "</td>" +
+                                      "<td>" + value.Price + "</td>" +
+                                       "<td>"+
+                                        "<button type=\"button\" class=\"btn btn-outline-primary btn-sm\">Cart&nbsp; <i class=\"fa fa-shopping-cart\"></i></button>"+
+                                         "<button type=\"button\" class=\"btn btn-outline-info btn-sm\">Wish List&nbsp; &hearts;</button>"+
+                                        "</td>"+
+                                "</tr>";
+                                SetData.append(Data);
+                            })
+                        }
+                    }
+                });
+            });
+        });
+</script>

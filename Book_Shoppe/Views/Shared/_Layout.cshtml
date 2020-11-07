@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Book Shoppe</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://kit.fontawesome.com/e5012b6799.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar navbar-expand-lg navbar-dark bg-gradient-nav">
+        <div class="container">
+            @Html.ActionLink("Book Shoppe", "Index", "Home", new { area = "" }, new { @class = "navbar-brand mastertitle" })
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse na">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item genre-Dropdown">
+                        @if (Session["Genre"] == null)
+                        {   <button class="genre-Dropdown-btn genre-Dropdown-down">Genres&nbsp;&#9660;</button>
+                        <button class="genre-Dropdown-btn genre-Dropdown-up">Genres&nbsp;&#9650;</button>
+                        }
+                        else
+                        {
+                            <button class="genre-Dropdown-btn genre-Dropdown-down">@Session["Genre"]&nbsp;&#9660;</button>
+                            <button class="genre-Dropdown-btn genre-Dropdown-up">@Session["Genre"]&nbsp;&#9650;</button>
+                        }
+
+                        <div class="genre-Dropdown-Content">
+                            @* Get the Genres form the BookBL Static Meathod *@
+                            @foreach (var item in Book_Shoppe.BL.BookBL.GetGenres())
+                            {
+                                @Html.ActionLink(linkText: item.GenreName, actionName: "Geners", controllerName: "Book", routeValues: new { id = item.GenreID }, htmlAttributes: new { @class = "" })
+                                <br />
+                            }
+                        </div>
+                    </li>
+                    <li class="nav-item language-Dropdown">
+                        @if (Session["Language"] == null)
+                        {
+                            <button class="language-Dropdown-btn language-Dropdown-down">Language&nbsp;&#9660;</button>
+                            <button class= "language-Dropdown-btn language-Dropdown-up">Language&nbsp;&#9650;</button>
+                        }
+                        else
+                        {
+                            <button class="language-Dropdown-btn language-Dropdown-down">@Session["Language"]&nbsp;&#9660;</button>
+                            <button class="language-Dropdown-btn language-Dropdown-up">@Session["Language"]&nbsp;&#9650;</button>
+                        }
+                        <div class="language-Dropdown-Content">
+                            @* Get the Genres form the BookBL Static Meathod *@
+                            @foreach (var item in Book_Shoppe.BL.BookBL.GetLanguages())
+                            {
+                                @Html.ActionLink(linkText: item.LanguageName, actionName: "Languages", controllerName: "Book", routeValues: new { id = item.LanguageID }, htmlAttributes: new { @class = "" })
+                                <br />
+                            }
+                        </div>
+                    </li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Category", "ManageBookCategory", "Book", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                        if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Users", "Index", "User", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                        if (HttpContext.Current.User.IsInRole("Seller"))
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("My Books", "Index", "Book", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                    }
+
+                </ul>
+
+
+                <div class="Search-bar">
+                    <div id="search">
+                        <i class="fas fa-search" id="search-icon"></i>
+                        <input type="text" id="search-input" name="search" autocomplete="off">
+                    </div>
+                </div>
+                @Html.Partial("_LoginPartial")
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Book Shoppe</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

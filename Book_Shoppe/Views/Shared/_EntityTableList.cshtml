@@ -1,0 +1,36 @@
+﻿<h1>Book Details</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th>Sno</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Genere</th>
+            <th>Language</th>
+            <th>Price</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody id="DataSearching">
+        @{
+            int count = 1;
+            foreach (var item in Model)
+            {
+                <tr class="table-light">
+                    <td>@count</td>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.Genre.GenreName</td>
+                    <td>@item.Language.LanguageName</td>
+                    <td>&#36;@item.Price</td>
+                    <td>
+                        @Html.ActionLink("_Cart", "AddToCart", "User", new { id = @item.BookID }, new { @class = "btn btn-outline-primary btn-sm fa fa-shopping-cart" })
+                        @Html.ActionLink("_Wishlist", "AddToWishList", "User", new { id = @item.BookID }, new { @class = "btn btn-outline-info btn-sm fas fa-heart" })
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
